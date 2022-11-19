@@ -42,7 +42,7 @@ class CertificadoProperties {
                 System.setProperty("javax.net.ssl.keyStore", certificado.getArquivo());
                 break;
             case ARQUIVO_BYTES:
-                File cert = File.createTempFile("cert", ".pfx");
+                File cert = Files.createTempFile("cert", ".pfx").toFile();
                 Files.write(cert.toPath(),certificado.getArquivoBytes());
                 System.setProperty("javax.net.ssl.keyStoreType", "PKCS12");
                 System.setProperty("javax.net.ssl.keyStore", cert.getAbsolutePath());
@@ -58,7 +58,7 @@ class CertificadoProperties {
         //Extrair Cacert do Jar
         String cacert;
         try {
-            File file = File.createTempFile("tempfile", ".tmp");
+            File file = Files.createTempFile("tempfile", ".tmp").toFile();
             OutputStream out = new FileOutputStream(file);
             int read;
             byte[] bytes = new byte[1024];
@@ -79,7 +79,7 @@ class CertificadoProperties {
     }
 
     public static void main(String[] args) throws IOException {
-        File cert = File.createTempFile("cert", ".pfx");
+        File cert = Files.createTempFile("cert", ".pfx").toFile();
         Files.write(cert.toPath(),Files.readAllBytes(new File("d:/certificado.pfx").toPath()));
         System.out.println(cert.getAbsolutePath());
     }
